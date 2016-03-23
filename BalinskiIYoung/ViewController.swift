@@ -7,13 +7,18 @@
 //
 
 import Cocoa
+import Charts
 
 class ViewController: NSViewController {
 
+    @IBOutlet weak var calculationTextView: NSScrollView!
+    
+    @IBOutlet weak var chartView: BarChartView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    
     }
 
     override var representedObject: AnyObject? {
