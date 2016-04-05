@@ -13,7 +13,11 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var calculationTextView: NSScrollView!
     var populations:[Double]?
+    var selectedRowIndex: Int?
     
+    @IBOutlet weak var parliamentCountTextField: NSTextField!
+    
+    @IBOutlet weak var statePopulationTextField: NSTextField!
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var chartView: PieChartView!
     
@@ -60,7 +64,12 @@ class ViewController: NSViewController {
             a[maxQ.index] += 1
         }
         
-        let stany = ["Stan 1", "Stan 2", "Stan 3"];
+        var stany = [String]()
+        
+        for i in 0..<populations.count {
+            stany.append("Stan \(i+1)")
+        }
+        
         setChart(stany, values: a)
         
         return a
@@ -92,27 +101,59 @@ class ViewController: NSViewController {
         
         pieChartDataSet.colors = colors
     }
+
+    
+    @IBAction func plusButtonAction(sender: AnyObject) {
+        populations?.append(0)
+        tableView.reloadData()
+    }
+    @IBAction func minueButtonAction(sender: AnyObject) {
+        if tableView.selectedRow != -1 {
+            populations?.removeAtIndex(tableView.selectedRow)
+            tableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func addState(sender: AnyObject) {
+        let stringValue = statePopulationTextField.stringValue
+        if  stringValue != "" {
+            if let doubleValue = Double(stringValue) {
+                populations?.append(doubleValue)
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    
+    @IBAction func countAction(sender: AnyObject) {
+        let stringValue = parliamentCountTextField.stringValue
+        
+        if let doubleValue = Double(stringValue), populations = populations where stringValue != "" {
+            count(populations, parliamentCount: doubleValue)
+        }
+    }
     
 }
 
-//extension ViewController: NSTextFieldDelegate {
-//    
-//    public func textShouldBeginEditing(textObject: NSText) -> Bool {
-//        return true
-//    }
-//    public func textShouldEndEditing(textObject: NSText) -> Bool {
-//        return true
-//    }
-//    public func textDidBeginEditing(notification: NSNotification) {
-//        
-//    }
-//    public func textDidEndEditing(notification: NSNotification) {
-//        
-//    }
-//    public func textDidChange(notification: NSNotification) {
-//        
-//    }
-//}
+extension ViewController: NSTextFieldDelegate {
+    
+    func textShouldBeginEditing(textObject: NSText) -> Bool {
+        return true
+    }
+    func textShouldEndEditing(textObject: NSText) -> Bool {
+        return true
+    }
+    func textDidBeginEditing(notification: NSNotification) {
+        
+    }
+    func textDidEndEditing(notification: NSNotification) {
+        
+    }
+    func textDidChange(notification: NSNotification) {
+        
+    }
+}
 
 extension ViewController: NSTableViewDataSource {
     
@@ -142,10 +183,12 @@ extension ViewController: NSTableViewDelegate {
         
         if let cell = tableView.makeViewWithIdentifier(cellIdentifier, owner: nil) as? NSTableCellView {
             cell.textField?.stringValue = text
+            cell.textField?.delegate = self
             return cell
         }
         return nil
     }
+    
 }
 
 
