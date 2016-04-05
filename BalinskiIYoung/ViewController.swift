@@ -26,53 +26,19 @@ class ViewController: NSViewController {
         
         let parliamentCount: Double = 5
         populations = [7270, 1230, 2220]
-        count(populations!, parliamentCount: parliamentCount)
-        
-        self.tableView.reloadData()
-    }
-    
-    func count(populations:[Double], parliamentCount: Double) -> [Double] {
-        let parliamentCount: Double = parliamentCount
-        let populations:[Double] = populations
-        let populationCount: Double = populations.reduce(0, combine: +)
-        var a = [Double](count:populations.count, repeatedValue: 0.0)
         
         
-        for (var i:Double=1.0; i<=parliamentCount; i += 1) {
-            
-            var tempQ = [Double]()
-            
-            for (index, element) in populations.enumerate() {
-                let q: Double = i*element/populationCount
-                
-                
-                if a[index] < q{
-                    tempQ.append(q)
-                } else {
-                    tempQ.append(0.0)
-                }
-            }
-            
-            var maxQ = (value:0.0, index:0)
-            
-            for (index, value) in tempQ.enumerate() {
-                if value > maxQ.value {
-                    maxQ = (value: value, index: index)
-                }
-            }
-            
-            a[maxQ.index] += 1
-        }
+        let a = BalinskiYoungAlgorith.count(populations!, parliamentCount: parliamentCount)
         
         var stany = [String]()
         
-        for i in 0..<populations.count {
+        for i in 0..<populations!.count {
             stany.append("Stan \(i+1)")
         }
         
         setChart(stany, values: a)
         
-        return a
+        self.tableView.reloadData()
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
@@ -130,7 +96,44 @@ class ViewController: NSViewController {
         let stringValue = parliamentCountTextField.stringValue
         
         if let doubleValue = Double(stringValue), populations = populations where stringValue != "" {
-            count(populations, parliamentCount: doubleValue)
+            BalinskiYoungAlgorith.count(populations, parliamentCount: doubleValue)
+        }
+    }
+    @IBAction func openFile(sender: AnyObject) {
+        let openPanel = NSOpenPanel()
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canCreateDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.beginWithCompletionHandler { (result) -> Void in
+            if result == NSFileHandlingPanelOKButton {
+                do {
+                    let textContent = try String(contentsOfURL: openPanel.URL!, encoding: NSUTF8StringEncoding)
+                    
+                    let valuesArray = textContent.componentsSeparatedByString("\n")
+                    
+                    let statesNrAndParliamentNr = valuesArray[0].componentsSeparatedByString(" ")
+                    
+                    let statesValues = valuesArray[1].componentsSeparatedByString(" ")
+                    
+                    self.populations = []
+                    
+                    for stateValue in statesValues {
+                        guard let stateDoubleValue = Double(stateValue) else {
+                            return
+                        }
+                        self.populations?.append(Double(stateDoubleValue))
+                    }
+                    
+                    self.parliamentCountTextField.stringValue = statesNrAndParliamentNr[0]
+                    
+                    self.tableView.reloadData()
+                    
+                } catch let error as NSError {
+                    print("error loading from url \(openPanel.URL!)")
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
     

@@ -763,7 +763,7 @@
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="j5Z-BI-rmD">
-                                    <rect key="frame" x="1" y="111" width="215" height="16"/>
+                                    <rect key="frame" x="1" y="-16" width="0.0" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="V84-92-P8F">
@@ -796,7 +796,7 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oNg-nJ-vue">
-                                <rect key="frame" x="8" y="122" width="211" height="17"/>
+                                <rect key="frame" x="8" y="109" width="211" height="17"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Podaj liczbę miejsc w parlamencie" id="NUF-6P-f4a">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -814,7 +814,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mUa-az-ejb">
-                                <rect key="frame" x="10" y="91" width="207" height="22"/>
+                                <rect key="frame" x="10" y="79" width="207" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Liczba miejsc" drawsBackground="YES" id="2Ac-fz-ZEN">
                                     <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="PFo-DO-XpN"/>
                                     <font key="font" metaFont="system"/>
@@ -846,6 +846,16 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="addState:" target="XfG-lQ-9wD" id="8cJ-Po-1Kz"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lpD-Gd-wat">
+                                <rect key="frame" x="4" y="135" width="229" height="32"/>
+                                <buttonCell key="cell" type="push" title="Zaczytaj dane z pliku" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4HA-Ii-XYX">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openFile:" target="XfG-lQ-9wD" id="MMf-Au-nYf"/>
                                 </connections>
                             </button>
                         </subviews>
