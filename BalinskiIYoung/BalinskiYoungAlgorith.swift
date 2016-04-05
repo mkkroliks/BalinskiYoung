@@ -10,19 +10,19 @@ import Cocoa
 
 public struct BalinskiYoungAlgorith {
     
-    public static func count(populations:[Double], parliamentCount: Double) -> [Double] {
-        let parliamentCount: Double = parliamentCount
-        let populations:[Double] = populations
-        let populationCount: Double = populations.reduce(0, combine: +)
+    public static func count(populations:[Int], parliamentCount: Int) -> [Double] {
+        let parliamentCount: Int = parliamentCount
+        let populations:[Int] = populations
+        let populationCount: Int = populations.reduce(0, combine: +)
         var a = [Double](count:populations.count, repeatedValue: 0.0)
         
         
-        for (var i:Double=1.0; i<=parliamentCount; i += 1) {
+        for (var i:Double=1.0; i<=Double(parliamentCount); i += 1) {
             
             var tempQ = [Double]()
             
             for (index, element) in populations.enumerate() {
-                let q: Double = i*element/populationCount
+                let q: Double = i*Double(element)/Double(populationCount)
                 
                 
                 if a[index] < q{

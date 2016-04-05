@@ -12,7 +12,7 @@ import Charts
 class ViewController: NSViewController {
 
     @IBOutlet weak var calculationTextView: NSScrollView!
-    var populations:[Double]?
+    var populations:[Int]?
     var selectedRowIndex: Int?
     
     @IBOutlet weak var parliamentCountTextField: NSTextField!
@@ -23,6 +23,7 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        populations = []
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
@@ -34,7 +35,7 @@ class ViewController: NSViewController {
             dataEntries.append(dataEntry)
         }
         
-        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Rozmieszczenie miejsc w par")
+        let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Rozmieszczenie miejsc w parlamencie")
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         chartView.data = pieChartData
         
@@ -58,19 +59,35 @@ class ViewController: NSViewController {
         tableView.reloadData()
     }
     @IBAction func minueButtonAction(sender: AnyObject) {
+        let parliamentCountStringValue = parliamentCountTextField.stringValue
+        
+        
         if tableView.selectedRow != -1 {
             populations?.removeAtIndex(tableView.selectedRow)
             tableView.reloadData()
+        }
+        
+        if parliamentCountStringValue != "" {
+            if let parliamentCount = Int(parliamentCountStringValue) {
+                    reloadChart(populations!, parliamentCount: parliamentCount)
+            }
         }
     }
     
     
     @IBAction func addState(sender: AnyObject) {
-        let stringValue = statePopulationTextField.stringValue
-        if  stringValue != "" {
-            if let doubleValue = Double(stringValue) {
-                populations?.append(doubleValue)
+        let statePopulationStringValue = statePopulationTextField.stringValue
+        let parliamentCountStringValue = parliamentCountTextField.stringValue
+        
+        if  statePopulationStringValue != "" {
+            if let statePopulationValue = Int(statePopulationStringValue) {
+                populations?.append(statePopulationValue)
                 tableView.reloadData()
+                if parliamentCountStringValue != "" {
+                    if let parliamentCount = Int(parliamentCountStringValue) {
+                        reloadChart(populations!, parliamentCount: parliamentCount)
+                    }
+                }
             }
         }
     }
@@ -79,20 +96,24 @@ class ViewController: NSViewController {
     @IBAction func countAction(sender: AnyObject) {
         let stringValue = parliamentCountTextField.stringValue
         
-        if let doubleValue = Double(stringValue), populations = populations where stringValue != "" {
-            let a = BalinskiYoungAlgorith.count(populations, parliamentCount: doubleValue)
-            
-            var stany = [String]()
-            
-            for i in 0..<populations.count {
-                stany.append("Stan \(i+1)")
-            }
-            
-            setChart(stany, values: a)
-            
+        if let parliamentCount = Int(stringValue), populations = populations where stringValue != "" {
+            reloadChart(populations, parliamentCount: parliamentCount)
             self.tableView.reloadData()
         }
     }
+    
+    private func reloadChart(populations: [Int], parliamentCount: Int) {
+        
+        let a = BalinskiYoungAlgorith.count(populations, parliamentCount: parliamentCount)
+        var stany = [String]()
+        
+        for i in 0..<populations.count {
+            stany.append("Stan \(i+1)")
+        }
+        
+        setChart(stany, values: a)
+    }
+    
     @IBAction func openFile(sender: AnyObject) {
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
@@ -112,16 +133,26 @@ class ViewController: NSViewController {
                     
                     self.populations = []
                     
+                    print(statesNrAndParliamentNr)
+                    print(valuesArray)
+                    
                     for stateValue in statesValues {
-                        guard let stateDoubleValue = Double(stateValue) else {
+                        guard let stateDoubleValue = Int(stateValue) else {
+                            self.displayErrorMessage("Zły format danych")
                             return
                         }
-                        self.populations?.append(Double(stateDoubleValue))
+                        self.populations?.append(stateDoubleValue)
+                    }
+                    
+                    guard let parliamentCount = Int(statesNrAndParliamentNr[1]) else {
+                        self.displayErrorMessage("Zły format danych")
+                        return
                     }
                     
                     self.parliamentCountTextField.stringValue = statesNrAndParliamentNr[1]
                     
                     self.tableView.reloadData()
+                    self.reloadChart(self.populations!, parliamentCount: parliamentCount)
                     
                 } catch let error as NSError {
                     print("error loading from url \(openPanel.URL!)")
@@ -131,24 +162,12 @@ class ViewController: NSViewController {
         }
     }
     
-}
-
-extension ViewController: NSTextFieldDelegate {
-    
-    func textShouldBeginEditing(textObject: NSText) -> Bool {
-        return true
-    }
-    func textShouldEndEditing(textObject: NSText) -> Bool {
-        return true
-    }
-    func textDidBeginEditing(notification: NSNotification) {
-        
-    }
-    func textDidEndEditing(notification: NSNotification) {
-        
-    }
-    func textDidChange(notification: NSNotification) {
-        
+    func displayErrorMessage(message: String) {
+        let alert = NSAlert()
+        alert.alertStyle = .CriticalAlertStyle
+        alert.messageText = "Bląd!"
+        alert.informativeText = message
+        alert.runModal()
     }
 }
 
@@ -180,7 +199,6 @@ extension ViewController: NSTableViewDelegate {
         
         if let cell = tableView.makeViewWithIdentifier(cellIdentifier, owner: nil) as? NSTableCellView {
             cell.textField?.stringValue = text
-            cell.textField?.delegate = self
             return cell
         }
         return nil

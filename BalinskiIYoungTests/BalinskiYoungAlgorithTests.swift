@@ -18,7 +18,7 @@ class BalinskiYoungAlgorithTests: XCTestCase {
     func testIsResultValid() {
         
         let parliamentCount: Double = 5
-        let populations: [Double] = [7270, 1230, 2220]
+        let populations: [Int] = [7270, 1230, 2220]
         
         let a = BalinskiYoungAlgorith.count(populations, parliamentCount: parliamentCount)
         
@@ -27,11 +27,20 @@ class BalinskiYoungAlgorithTests: XCTestCase {
     
     func testResultForSingleState() {
         let parliamentCount: Double = 5
-        let populations: [Double] = [7270]
+        let populations: [Int] = [7270]
         
         let a = BalinskiYoungAlgorith.count(populations, parliamentCount: parliamentCount)
         
         XCTAssertEqual(a, [5])
+    }
+    
+    func testZeroParliementPlaces() {
+        let parliamentCount: Double = 0
+        let populations: [Int] = [7270]
+        
+        let a = BalinskiYoungAlgorith.count(populations, parliamentCount: parliamentCount)
+        
+        XCTAssertEqual(a, [0])
     }
 
 }
