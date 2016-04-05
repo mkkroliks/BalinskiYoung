@@ -10,11 +10,11 @@ import Cocoa
 
 public struct BalinskiYoungAlgorith {
     
-    public static func count(populations:[Int], parliamentCount: Int) -> [Double] {
+    public static func count(populations:[Int], parliamentCount: Int) -> [Int] {
         let parliamentCount: Int = parliamentCount
         let populations:[Int] = populations
         let populationCount: Int = populations.reduce(0, combine: +)
-        var a = [Double](count:populations.count, repeatedValue: 0.0)
+        var a = [Int](count:populations.count, repeatedValue: 0)
         
         
         for (var i:Double=1.0; i<=Double(parliamentCount); i += 1) {
@@ -25,7 +25,7 @@ public struct BalinskiYoungAlgorith {
                 let q: Double = i*Double(element)/Double(populationCount)
                 
                 
-                if a[index] < q{
+                if Double(a[index]) < q{
                     tempQ.append(q)
                 } else {
                     tempQ.append(0.0)

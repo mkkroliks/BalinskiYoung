@@ -838,7 +838,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fws-o4-vfv">
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fws-o4-vfv">
                                 <rect key="frame" x="162" y="327" width="76" height="32"/>
                                 <buttonCell key="cell" type="push" title="Dodaj" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VIm-uL-K9H">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -860,9 +860,9 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="lfe-19-iK4" firstAttribute="leading" secondItem="fws-o4-vfv" secondAttribute="trailing" constant="26" id="8zZ-N1-xfm"/>
                             <constraint firstAttribute="bottom" secondItem="lfe-19-iK4" secondAttribute="bottom" constant="20" id="c9k-2W-tAY"/>
                             <constraint firstItem="lfe-19-iK4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="33" id="mg9-mC-Zh8"/>
+                            <constraint firstItem="lfe-19-iK4" firstAttribute="leading" secondItem="2eE-Dn-bjJ" secondAttribute="trailing" constant="32" id="pBM-MF-C5U"/>
                             <constraint firstAttribute="trailing" secondItem="lfe-19-iK4" secondAttribute="trailing" constant="20" id="zKV-y6-hnb"/>
                         </constraints>
                     </view>

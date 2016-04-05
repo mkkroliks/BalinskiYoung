@@ -26,18 +26,19 @@ class ViewController: NSViewController {
         populations = []
     }
     
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(dataPoints: [String], values: [Int]) {
         
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(value: values[i], xIndex: i)
+            let dataEntry = ChartDataEntry(value: Double(values[i]), xIndex: i)
             dataEntries.append(dataEntry)
         }
         
         let pieChartDataSet = PieChartDataSet(yVals: dataEntries, label: "Rozmieszczenie miejsc w parlamencie")
         let pieChartData = PieChartData(xVals: dataPoints, dataSet: pieChartDataSet)
         chartView.data = pieChartData
+        chartView.descriptionText = ""
         
         var colors: [NSUIColor] = []
         
@@ -104,10 +105,16 @@ class ViewController: NSViewController {
     
     private func reloadChart(populations: [Int], parliamentCount: Int) {
         
-        let a = BalinskiYoungAlgorith.count(populations, parliamentCount: parliamentCount)
+        var a = BalinskiYoungAlgorith.count(populations, parliamentCount: parliamentCount)
         var stany = [String]()
         
-        for i in 0..<populations.count {
+        for (index,stateValue) in a.enumerate() {
+            if stateValue == 0 {
+                a.removeAtIndex(index)
+            }
+        }
+        
+        for i in 0..<a.count {
             stany.append("Stan \(i+1)")
         }
         
