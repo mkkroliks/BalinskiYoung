@@ -23,22 +23,6 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let parliamentCount: Double = 5
-        populations = [7270, 1230, 2220]
-        
-        
-        let a = BalinskiYoungAlgorith.count(populations!, parliamentCount: parliamentCount)
-        
-        var stany = [String]()
-        
-        for i in 0..<populations!.count {
-            stany.append("Stan \(i+1)")
-        }
-        
-        setChart(stany, values: a)
-        
-        self.tableView.reloadData()
     }
     
     func setChart(dataPoints: [String], values: [Double]) {
@@ -96,7 +80,17 @@ class ViewController: NSViewController {
         let stringValue = parliamentCountTextField.stringValue
         
         if let doubleValue = Double(stringValue), populations = populations where stringValue != "" {
-            BalinskiYoungAlgorith.count(populations, parliamentCount: doubleValue)
+            let a = BalinskiYoungAlgorith.count(populations, parliamentCount: doubleValue)
+            
+            var stany = [String]()
+            
+            for i in 0..<populations.count {
+                stany.append("Stan \(i+1)")
+            }
+            
+            setChart(stany, values: a)
+            
+            self.tableView.reloadData()
         }
     }
     @IBAction func openFile(sender: AnyObject) {
@@ -125,7 +119,7 @@ class ViewController: NSViewController {
                         self.populations?.append(Double(stateDoubleValue))
                     }
                     
-                    self.parliamentCountTextField.stringValue = statesNrAndParliamentNr[0]
+                    self.parliamentCountTextField.stringValue = statesNrAndParliamentNr[1]
                     
                     self.tableView.reloadData()
                     
