@@ -9,10 +9,10 @@
 import Cocoa
 import Charts
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSTextFieldDelegate {
 
     @IBOutlet weak var calculationTextView: NSScrollView!
-    var populations:[Int]?
+    var populations:[Int]!
     var selectedRowIndex: Int?
     
     @IBOutlet weak var parliamentCountTextField: NSTextField!
@@ -24,6 +24,28 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         populations = []
+    }
+    
+    override func viewDidAppear() {
+        self.chartView.layoutSubtreeIfNeeded()
+    }
+    
+    func control(control: NSControl, textShouldEndEditing fieldEditor: NSText) -> Bool {
+        let parliamentCountStringValue = parliamentCountTextField.stringValue
+        
+        if let stateStringValue = fieldEditor.string {
+            guard let stateValue = Int(stateStringValue) else {
+                self.tableView.reloadData()
+                return true
+            }
+            self.populations![control.tag] = stateValue
+            if parliamentCountStringValue != "" {
+                if let parliamentCount = Int(parliamentCountStringValue) {
+                    reloadChart(populations!, parliamentCount: parliamentCount)
+                }
+            }
+        }
+        return true
     }
     
     func setChart(dataPoints: [String], values: [Int]) {
@@ -52,6 +74,7 @@ class ViewController: NSViewController {
         }
         
         pieChartDataSet.colors = colors
+        chartView.animate(xAxisDuration: 2.0)
     }
 
     
@@ -59,6 +82,7 @@ class ViewController: NSViewController {
         populations?.append(0)
         tableView.reloadData()
     }
+    
     @IBAction func minueButtonAction(sender: AnyObject) {
         let parliamentCountStringValue = parliamentCountTextField.stringValue
         
@@ -75,25 +99,6 @@ class ViewController: NSViewController {
         }
     }
     
-    
-    @IBAction func addState(sender: AnyObject) {
-        let statePopulationStringValue = statePopulationTextField.stringValue
-        let parliamentCountStringValue = parliamentCountTextField.stringValue
-        
-        if  statePopulationStringValue != "" {
-            if let statePopulationValue = Int(statePopulationStringValue) {
-                populations?.append(statePopulationValue)
-                tableView.reloadData()
-                if parliamentCountStringValue != "" {
-                    if let parliamentCount = Int(parliamentCountStringValue) {
-                        reloadChart(populations!, parliamentCount: parliamentCount)
-                    }
-                }
-            }
-        }
-    }
-    
-    
     @IBAction func countAction(sender: AnyObject) {
         let stringValue = parliamentCountTextField.stringValue
         
@@ -109,14 +114,12 @@ class ViewController: NSViewController {
         var stany = [String]()
         
         for (index,stateValue) in a.enumerate() {
-            if stateValue == 0 {
-                a.removeAtIndex(index)
+            if stateValue != 0 {
+                stany.append("Stan \(index+1)")
             }
         }
         
-        for i in 0..<a.count {
-            stany.append("Stan \(i+1)")
-        }
+        a = a.filter { $0 != 0 }
         
         setChart(stany, values: a)
     }
@@ -206,6 +209,9 @@ extension ViewController: NSTableViewDelegate {
         
         if let cell = tableView.makeViewWithIdentifier(cellIdentifier, owner: nil) as? NSTableCellView {
             cell.textField?.stringValue = text
+            cell.textField?.editable = true
+            cell.textField?.delegate = self
+            cell.textField?.tag = row
             return cell
         }
         return nil
