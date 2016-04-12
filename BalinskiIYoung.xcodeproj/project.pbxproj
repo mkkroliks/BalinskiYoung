@@ -11,7 +11,7 @@
 		021289431CA2AE5E00A33710 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021289421CA2AE5E00A33710 /* ViewController.swift */; };
 		021289451CA2AE5E00A33710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 021289441CA2AE5E00A33710 /* Assets.xcassets */; };
 		021289481CA2AE5E00A33710 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021289461CA2AE5E00A33710 /* Main.storyboard */; };
-		0264E7291CB32CF90051F729 /* PopulationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0264E7281CB32CF90051F729 /* PopulationCell.swift */; };
+		028E29581CBD113400FA982D /* LiuLayland.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028E29571CBD113400FA982D /* LiuLayland.swift */; };
 		02FB47401CB3D1CD007066FD /* BalinskiYoungAlgorith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FB473F1CB3D1CD007066FD /* BalinskiYoungAlgorith.swift */; };
 		02FB47481CB3D41B007066FD /* BalinskiIYoungTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FB47471CB3D41B007066FD /* BalinskiIYoungTests.swift */; };
 		02FB47511CB3D4C6007066FD /* BalinskiYoungAlgorithTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FB47501CB3D4C6007066FD /* BalinskiYoungAlgorithTests.swift */; };
@@ -37,7 +37,7 @@
 		021289471CA2AE5E00A33710 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		021289491CA2AE5E00A33710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0264E7271CB26CF50051F729 /* Balinski.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Balinski.playground; path = ../../../Desktop/Balinski.playground; sourceTree = "<group>"; };
-		0264E7281CB32CF90051F729 /* PopulationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopulationCell.swift; sourceTree = "<group>"; };
+		028E29571CBD113400FA982D /* LiuLayland.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiuLayland.swift; sourceTree = "<group>"; };
 		02FB473F1CB3D1CD007066FD /* BalinskiYoungAlgorith.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalinskiYoungAlgorith.swift; sourceTree = "<group>"; };
 		02FB47451CB3D41B007066FD /* BalinskiIYoungTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BalinskiIYoungTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02FB47471CB3D41B007066FD /* BalinskiIYoungTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalinskiIYoungTests.swift; sourceTree = "<group>"; };
@@ -92,12 +92,12 @@
 			children = (
 				021289401CA2AE5E00A33710 /* AppDelegate.swift */,
 				021289421CA2AE5E00A33710 /* ViewController.swift */,
-				0264E7281CB32CF90051F729 /* PopulationCell.swift */,
 				021289441CA2AE5E00A33710 /* Assets.xcassets */,
 				021289461CA2AE5E00A33710 /* Main.storyboard */,
 				0264E7271CB26CF50051F729 /* Balinski.playground */,
 				021289491CA2AE5E00A33710 /* Info.plist */,
 				02FB473F1CB3D1CD007066FD /* BalinskiYoungAlgorith.swift */,
+				028E29571CBD113400FA982D /* LiuLayland.swift */,
 			);
 			path = BalinskiIYoung;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 			files = (
 				021289431CA2AE5E00A33710 /* ViewController.swift in Sources */,
 				021289411CA2AE5E00A33710 /* AppDelegate.swift in Sources */,
-				0264E7291CB32CF90051F729 /* PopulationCell.swift in Sources */,
+				028E29581CBD113400FA982D /* LiuLayland.swift in Sources */,
 				02FB47401CB3D1CD007066FD /* BalinskiYoungAlgorith.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +484,7 @@
 				02FB474E1CB3D41B007066FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

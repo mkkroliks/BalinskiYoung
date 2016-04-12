@@ -735,7 +735,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="QVf-l8-pqM">
-                                                            <rect key="frame" x="120.40628506904773" y="1" width="93" height="17"/>
+                                                            <rect key="frame" x="120" y="1" width="93" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zNI-29-cmx">
@@ -762,7 +762,7 @@
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
-                                <scroller key="horizontalScroller" verticalHuggingPriority="750" doubleValue="0.40628506904772621" horizontal="YES" id="j5Z-BI-rmD">
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="j5Z-BI-rmD">
                                     <rect key="frame" x="1" y="111" width="215" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
